@@ -272,15 +272,31 @@ public class cBuild extends javax.swing.JFrame{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+    public String irAPiso(int piso , int pisoActual) throws InterruptedException {
+        String str = "";
+        
+        if (piso > pisoActual) {
+            for (int i = pisoActual + 1; i <= piso; i++) {
+                str = str +  i + "... ";
+            }
+        } else if (piso < pisoActual) {
+            for (int i = pisoActual - 1; i >= piso; i--) {
+                str = str +  i + "... ";
+            }
+        }
+        pisoActual = piso;
+        str = str + "  Llegaste al piso " + pisoActual;
+        return str;
+    }
+    
     private void cElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cElevActionPerformed
-        //0bjeto Ascensor
-        Ascensor a = new Ascensor();
 
         if(elev.isSelected()){
             try {
 
-                String strS = a.irAPiso(Integer.parseInt(pDes.getText()),c);
+                String strS = irAPiso(Integer.parseInt(pDes.getText()),c);
                 c = Integer.parseInt(pDes.getText());
                 textElev.setText(strS);
 
