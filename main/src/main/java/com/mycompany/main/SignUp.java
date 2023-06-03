@@ -4,8 +4,6 @@
  */
 package com.mycompany.main;
 import static com.mycompany.main.Login.pHash;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.sql.*;
 /**
  *
@@ -18,14 +16,7 @@ public class SignUp extends javax.swing.JFrame {
      */
     public SignUp() {
         initComponents();
-        try{
-            String driverPath = "C:\\Users\\w10\\Desktop\\All\\Programacion\\Proyectos\\Final rama\\main\\driver connector\\mysql-connector-java-5.1.46.jar";
-            
-            URLClassLoader classLoader = new URLClassLoader(new URL[] { new URL("file:" + driverPath) });
-            Class.forName("com.mysql.jdbc.Driver", true, classLoader);
-        }catch(Exception e){
-            
-        }
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -43,9 +34,9 @@ public class SignUp extends javax.swing.JFrame {
         pswd = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        reg = new javax.swing.JButton();
         err = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,12 +58,12 @@ public class SignUp extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nueva Contraseña");
 
-        jButton1.setBackground(new java.awt.Color(136, 166, 193));
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Registrarme");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        reg.setBackground(new java.awt.Color(136, 166, 193));
+        reg.setForeground(new java.awt.Color(0, 0, 0));
+        reg.setText("Registrarme");
+        reg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                regActionPerformed(evt);
             }
         });
 
@@ -83,12 +74,12 @@ public class SignUp extends javax.swing.JFrame {
         err.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         err.setBorder(null);
 
-        jButton2.setBackground(new java.awt.Color(136, 166, 193));
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("Regresar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        back.setBackground(new java.awt.Color(136, 166, 193));
+        back.setForeground(new java.awt.Color(0, 0, 0));
+        back.setText("Regresar");
+        back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                backActionPerformed(evt);
             }
         });
 
@@ -100,9 +91,9 @@ public class SignUp extends javax.swing.JFrame {
                 .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(back)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(reg, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -138,8 +129,8 @@ public class SignUp extends javax.swing.JFrame {
                 .addComponent(err, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(reg)
+                    .addComponent(back))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
@@ -157,7 +148,7 @@ public class SignUp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void regActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regActionPerformed
         try{
                 Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/regUsers","root","");
                 PreparedStatement pst = cn.prepareStatement("INSERT INTO users VALUES(?,?,?)");
@@ -167,21 +158,23 @@ public class SignUp extends javax.swing.JFrame {
                 pst.setString(3,pHash(pswd.getText()));
                 
                 pst.executeUpdate();
+                
                 user.setText("");
                 pswd.setText("");
+                err.setText("Registro exitoso.");
                 
             }catch(Exception e){
                 err.setText("Error al registrar.");
                 e.printStackTrace();
             }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_regActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
         Login l = new Login();
         l.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,14 +212,14 @@ public class SignUp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
     private javax.swing.JTextField err;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField pswd;
+    private javax.swing.JButton reg;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }

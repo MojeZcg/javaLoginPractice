@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.main;
-
+import static com.mycompany.main.Login.pHash;
+import java.sql.*;
 /**
  *
  * @author Moje
@@ -15,6 +16,7 @@ public class RestorePswd extends javax.swing.JFrame {
      */
     public RestorePswd() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -27,20 +29,129 @@ public class RestorePswd extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        user = new javax.swing.JTextField();
+        pswd = new javax.swing.JPasswordField();
+        nPswd = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        back = new javax.swing.JButton();
+        err = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(18, 30, 49));
 
+        jButton1.setBackground(new java.awt.Color(136, 166, 193));
+        jButton1.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Restaurar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        user.setBackground(new java.awt.Color(51, 51, 51));
+        user.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        user.setForeground(new java.awt.Color(255, 255, 255));
+
+        pswd.setBackground(new java.awt.Color(51, 51, 51));
+        pswd.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        pswd.setForeground(new java.awt.Color(255, 255, 255));
+
+        nPswd.setBackground(new java.awt.Color(51, 51, 51));
+        nPswd.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        nPswd.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Usuario");
+
+        jLabel2.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Contraseña");
+
+        jLabel3.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Nueva Contraseña");
+
+        jLabel4.setFont(new java.awt.Font("Monospaced", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Restaurar Contraseña");
+
+        back.setBackground(new java.awt.Color(136, 166, 193));
+        back.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        back.setForeground(new java.awt.Color(0, 0, 0));
+        back.setText("Regresar");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
+        err.setEditable(false);
+        err.setBackground(new java.awt.Color(18, 30, 49));
+        err.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        err.setForeground(new java.awt.Color(255, 0, 0));
+        err.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        err.setBorder(null);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(66, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(pswd)
+                                    .addComponent(user)
+                                    .addComponent(nPswd, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(err, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(46, 46, 46))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(88, 88, 88))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(err, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pswd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nPswd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(back))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -56,6 +167,72 @@ public class RestorePswd extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        /**String psw = pswd.getText();
+        String usr = user.getText().trim();
+            
+        try{
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/regUsers","root","");
+            PreparedStatement pst1 = cn.prepareStatement("SELECT * FROM users WHERE User = ? AND Hash = ?");
+
+            pst1.setString(1, usr);
+            pst1.setString(2, pHash(psw));
+
+                ResultSet rs1 = pst1.executeQuery();
+
+                if (rs1.next()){
+                    PreparedStatement pst2 = cn.prepareStatement("UPDATE");
+                    
+                    
+                    
+                    
+                }else{
+                    err.setText("Usuario o Cotraseña invalido");
+                }
+
+            }catch(Exception e){
+                err.setText("Error al conectarse con la base de datos.");
+                e.printStackTrace();
+            } **/
+        
+ 
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/regUsers", "root", "");
+
+            
+            PreparedStatement stmt1 = conn.prepareStatement("SELECT Id FROM users WHERE User = ? AND Hash = ?");
+            stmt1.setString(1, user.getText());
+            stmt1.setString(2, pHash(pswd.getText()));
+
+            ResultSet rs = stmt1.executeQuery();
+
+            if (rs.next()) {
+                int idUsuario = rs.getInt("Id");
+                PreparedStatement stmt2 = conn.prepareStatement("UPDATE users SET Hash = ? WHERE Id = ?");
+                stmt2.setString(1, pHash(nPswd.getText()));
+                stmt2.setString(2, idUsuario + "");
+                stmt2.executeUpdate();
+                
+            } else {
+                err.setText("Usuario o contraseña incorrectos.");
+            }
+
+            rs.close();
+            stmt1.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        Login l = new Login();
+        l.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -93,6 +270,16 @@ public class RestorePswd extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
+    private javax.swing.JTextField err;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField nPswd;
+    private javax.swing.JPasswordField pswd;
+    private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }

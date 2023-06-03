@@ -81,6 +81,45 @@ class Build extends Construccion{
         this.asc = asc;
     }
     
+    
+    public double calcE(boolean elev){
+        double r = 0;
+        
+        //Añade el 135% del valor de el terreno
+        r += (135 / 100) * price;
+
+        //Suma la cantidad de departamentos
+        if(dep < 15 && dep > 50000){
+            r += 10000;
+        }else if(dep < 15){
+            r += 7500;
+        }else if(dep >= 15 && dep < 25){
+            r += 25000;
+        }else if(dep >= 25 ){
+            r += 35000;
+        }
+
+        //Suma de cantidad de pisos
+        if(pisos == 1 ){
+            r += 15000;
+        }else if(pisos == 2){
+            r += 25000;
+        }else if(pisos == 3){
+            r += 37500;
+        }else if(pisos == 4){
+            r += 42500;
+        }else if(pisos > 4){
+            r+= 60000;
+        }
+
+        //Suma si tiene ascensor
+        if(elev){
+            r += 67000;
+        }
+
+        //Retorna resultado
+        return r;
+    }
 }
 
 class Home extends Construccion{
@@ -127,6 +166,51 @@ class Home extends Construccion{
 
     public void setzCen(boolean zCen) {
         this.zCen = zCen;
+    }
+    
+    public double calcH(boolean p, boolean zC){
+        double r = 0;
+        
+        //Agrega el 120% al valor del terreno
+        r += (120 / 100) * price;
+        
+        //Suma segun la cantidad de habitaciones
+        if(hab == 1){
+            r += 15000;
+        }else if(hab == 2){
+            r += 25000;
+        }else if(hab == 3){
+            r += 37000;
+        }else if(hab == 4 ){
+            r += 42500;
+        }else if(hab > 4){
+            r += 60000;
+        }
+        
+        //Suma segun la cantidad de baños
+        if(2 > bh && price > 50000 ){
+            r +=10000;
+        }else if(2 > bh){
+            r += 7500;
+        }else if(2 <=bh && 4 > bh){
+            r += 25000;
+        }else if(bh >= 4){
+            r += 35000;
+        }
+        
+        //Tiene pileta?
+        if(p){
+            r += 35000;
+        }
+        //Esta en una zona centrica?
+        if(zC){
+            r += 17500;
+        }else{
+            r -= 2500;
+        }
+        
+        //Retorna resultado
+        return r;
     }
     
 }

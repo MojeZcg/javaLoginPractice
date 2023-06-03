@@ -24,7 +24,9 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     private String path = System.getProperty("user.dir")+ "\\pswds\\";
+    
     public Login(){
+        
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Login");
@@ -54,7 +56,7 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         err = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        cAcc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,6 +101,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        err.setEditable(false);
         err.setBackground(new java.awt.Color(18, 30, 49));
         err.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         err.setForeground(new java.awt.Color(255, 0, 0));
@@ -114,12 +117,13 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(136, 166, 193));
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jButton3.setText("Crear Cuenta");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        cAcc.setBackground(new java.awt.Color(136, 166, 193));
+        cAcc.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        cAcc.setForeground(new java.awt.Color(0, 0, 0));
+        cAcc.setText("Crear Cuenta");
+        cAcc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                cAccActionPerformed(evt);
             }
         });
 
@@ -128,18 +132,13 @@ public class Login extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(176, 176, 176)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(45, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(err, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -156,11 +155,14 @@ public class Login extends javax.swing.JFrame {
                                         .addGap(1, 1, 1))
                                     .addComponent(pswd, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(63, 63, 63))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))))
+                        .addGap(48, 48, 48))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(cAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(148, 148, 148))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,8 +184,8 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(cAcc)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -200,13 +202,14 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+        //Creacion del archivo
         private static String cF(String path,String name){
             String pName = path + name;
             File myObj = new File(pName);
             return pName;
         }
 
+        //Escribir el archivo
         private static void wF(String path,String w){
             try {
                 FileWriter writer = new FileWriter(path, true);
@@ -217,6 +220,7 @@ public class Login extends javax.swing.JFrame {
             }
         }
     
+        //Haseando la contraseña
         public static String pHash(String p){
             String gPswd = null;
             try{
@@ -261,6 +265,7 @@ public class Login extends javax.swing.JFrame {
                 }
             } **/
         
+        
         private void loginDB(){
             String psw = pswd.getText();
             String usr = user.getText().trim();
@@ -275,15 +280,18 @@ public class Login extends javax.swing.JFrame {
                 ResultSet rs = pst.executeQuery();
 
                 if (rs.next()){
+                    
                     Welcome op = new Welcome();
                     op.setVisible(true);
                     this.setVisible(false);
+                    
+                   
                 }else{
                     err.setText("Usuario o Cotraseña invalido");
                 }
 
             }catch(Exception e){
-                err.setText("Error al registrar.");
+                err.setText("Error al conectarse con la base de datos.");
                 e.printStackTrace();
             } 
         }
@@ -318,12 +326,12 @@ public class Login extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        SignUp sU = new SignUp();
-        sU.setVisible(true);
+    private void cAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cAccActionPerformed
+        SignUp su = new SignUp();
+        su.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
+    }//GEN-LAST:event_cAccActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -358,11 +366,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cAcc;
     private javax.swing.JTextField err;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFileChooser jFileChooser2;
     private javax.swing.JLabel jLabel1;
@@ -373,4 +382,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField pswd;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
+    
 }
+

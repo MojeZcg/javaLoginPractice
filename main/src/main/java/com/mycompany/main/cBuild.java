@@ -6,7 +6,11 @@ package com.mycompany.main;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 /**
  *
  * @author Moje
@@ -17,10 +21,18 @@ public class cBuild extends javax.swing.JFrame{
     /**
      * Creates new form cHome
      */
+    private String usr;
+    
+                    
     public cBuild() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Crear Edificio");
+    }
+    
+    public void setUsr(String usr){
+        this.usr = usr;
+        
     }
 
     /**
@@ -56,12 +68,16 @@ public class cBuild extends javax.swing.JFrame{
         cElev = new javax.swing.JButton();
         pDes = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
+        idBuild = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        err = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(18, 30, 49));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 800));
 
+        res.setEditable(false);
         res.setBackground(new java.awt.Color(51, 51, 51));
         res.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -100,6 +116,7 @@ public class cBuild extends javax.swing.JFrame{
         cDep.setBackground(new java.awt.Color(51, 51, 51));
         cDep.setForeground(new java.awt.Color(255, 255, 255));
 
+        elev.setBackground(new java.awt.Color(18, 30, 49));
         elev.setForeground(new java.awt.Color(255, 255, 255));
         elev.setText("Ascensor");
 
@@ -128,6 +145,7 @@ public class cBuild extends javax.swing.JFrame{
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Ascensor");
 
+        textElev.setEditable(false);
         textElev.setBackground(new java.awt.Color(51, 51, 51));
         textElev.setForeground(new java.awt.Color(255, 255, 255));
         textElev.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -155,66 +173,86 @@ public class cBuild extends javax.swing.JFrame{
         pDes.setBackground(new java.awt.Color(51, 51, 51));
         pDes.setForeground(new java.awt.Color(255, 255, 255));
 
+        idBuild.setEditable(false);
+        idBuild.setBackground(new java.awt.Color(51, 51, 51));
+        idBuild.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        idBuild.setForeground(new java.awt.Color(255, 255, 255));
+        idBuild.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Id del edificio");
+
+        err.setEditable(false);
+        err.setBackground(new java.awt.Color(18, 30, 49));
+        err.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        err.setForeground(new java.awt.Color(255, 0, 0));
+        err.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        err.setBorder(null);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator2)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel6)
-                                            .addComponent(elev))
-                                        .addGap(25, 25, 25))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(back)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(subPrice)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cDep, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(nCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cPis, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(m2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(pTerr, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jSeparator1)
-                            .addComponent(textElev)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sData)
-                            .addComponent(res, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(234, 234, 234)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
+                .addGap(231, 231, 231)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(66, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(err)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
                         .addComponent(jLabel8)
-                        .addGap(60, 60, 60)
+                        .addGap(48, 48, 48)
                         .addComponent(cElev)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pDes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                        .addComponent(pDes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(sData))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(res, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(idBuild))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(elev))
+                                .addGap(25, 25, 25))
+                            .addComponent(back, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(subPrice)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cDep, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(nCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cPis, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(m2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pTerr, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textElev))
+                .addGap(64, 64, 64))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(err, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(nCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -246,7 +284,9 @@ public class cBuild extends javax.swing.JFrame{
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(res, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(res, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idBuild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
                 .addGap(12, 12, 12)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -256,14 +296,14 @@ public class cBuild extends javax.swing.JFrame{
                     .addComponent(jLabel8))
                 .addGap(8, 8, 8)
                 .addComponent(textElev, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,6 +331,10 @@ public class cBuild extends javax.swing.JFrame{
         return str;
     }
     
+    
+    
+    
+    
     private void cElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cElevActionPerformed
 
         if(elev.isSelected()){
@@ -314,52 +358,56 @@ public class cBuild extends javax.swing.JFrame{
         this.setVisible(false);
     }//GEN-LAST:event_backActionPerformed
 
+    
+    public String getRes(){
+        Build edf = new Build(Integer.parseInt(cPis.getText()),Integer.parseInt(cDep.getText()),elev.isSelected(),Double.valueOf(pTerr.getText()),Double.valueOf(m2.getText()),nCalle.getText());
+        String r = edf.calcE(elev.isSelected()) + "$";
+        return r;
+    }
+    
     private void subPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subPriceActionPerformed
-        //variables
-        double r = 0;
-        int cP = Integer.parseInt(cPis.getText());
-        double pT = Double.parseDouble(pTerr.getText());
-        int cD = Integer.parseInt(cDep.getText());
-
-        //Añade el 135% del valor de el terreno
-        r += (135 / 100) * pT;
-
-        //Suma la cantidad de departamentos
-        if(cD < 15 && pT > 50000){
-            r += 10000;
-        }else if(cD < 15){
-            r += 7500;
-        }else if(cD >= 15 && cD < 25){
-            r += 25000;
-        }else if(cD >= 25 ){
-            r += 35000;
-        }
-
-        //Suma de cantidad de pisos
-        if(cP == 1 ){
-            r += 15000;
-        }else if(cP == 2){
-            r += 25000;
-        }else if(cP == 3){
-            r += 37500;
-        }else if(cP == 4){
-            r += 42500;
-        }else if(cP > 4){
-            r+= 60000;
-        }
-
-        //Suma si tiene ascensor
-        if(elev.isSelected()){
-            r += 67000;
-        }
-
-        //Muestra el resultado
-        res.setText(r + "$");
+        res.setText(getRes());
     }//GEN-LAST:event_subPriceActionPerformed
 
     private void sDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sDataActionPerformed
         Build edf = new Build(Integer.parseInt(cPis.getText()),Integer.parseInt(cDep.getText()),elev.isSelected(),Double.valueOf(pTerr.getText()),Double.valueOf(m2.getText()),nCalle.getText());
-        cBoard();
+        
+        String url = "jdbc:mysql://localhost/regUsers";
+        String usuario = "root";
+        String contraseña = "";
+
+        // Variables para la sentencia INSERT INTO
+        String sql = "INSERT INTO buildReg (BuildId, Address, Price) VALUES (?, ?,?)";
+        String[] columnasGeneradas = {"id"};
+
+        try {
+            // Establece la conexión a la base de datos
+            Connection conn = DriverManager.getConnection(url, usuario, contraseña);
+
+            // Prepara la sentencia INSERT INTO
+            PreparedStatement stmt = conn.prepareStatement(sql, columnasGeneradas);
+            stmt.setString(1, "0");
+            stmt.setString(2, nCalle.getText());
+            stmt.setString(3, edf.calcE(elev.isSelected())+ "");
+
+            // Ejecuta la sentencia INSERT INTO
+            stmt.executeUpdate();
+
+            // Obtiene el ID del valor registrado
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                int idGenerado = rs.getInt(1);
+                idBuild.setText(idGenerado + "");
+            }
+
+            // Cierra los recursos
+            rs.close();
+            stmt.close();
+            conn.close();
+            res.setText(getRes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_sDataActionPerformed
 
     public void cBoard(){
@@ -416,6 +464,8 @@ public class cBuild extends javax.swing.JFrame{
     private javax.swing.JButton cElev;
     private javax.swing.JTextField cPis;
     private javax.swing.JCheckBox elev;
+    private javax.swing.JTextField err;
+    private javax.swing.JTextField idBuild;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -424,6 +474,7 @@ public class cBuild extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -436,4 +487,8 @@ public class cBuild extends javax.swing.JFrame{
     private javax.swing.JButton subPrice;
     private javax.swing.JTextField textElev;
     // End of variables declaration//GEN-END:variables
+
+    
+
+    
 }

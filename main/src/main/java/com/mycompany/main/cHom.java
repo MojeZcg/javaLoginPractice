@@ -4,6 +4,11 @@
  */
 package com.mycompany.main;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author Moje
@@ -48,6 +53,8 @@ public class cHom extends javax.swing.JFrame {
         subPrice = new javax.swing.JButton();
         back = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        idHome = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,50 +63,66 @@ public class cHom extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Casa");
 
+        jLabel2.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Nombre Calle");
 
+        jLabel3.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Precio Terreno");
 
+        jLabel4.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Tamaño en m²");
 
+        jLabel5.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Cantidad de Baños");
 
+        jLabel6.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Cantidad de Habitaciones ");
 
+        pile.setBackground(new java.awt.Color(18, 30, 49));
         pile.setForeground(new java.awt.Color(255, 255, 255));
         pile.setText("Pileta");
 
+        zCen.setBackground(new java.awt.Color(18, 30, 49));
         zCen.setForeground(new java.awt.Color(255, 255, 255));
         zCen.setText("Zona Centrica");
 
+        jLabel7.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Precio de la Vivienda");
 
+        res.setEditable(false);
         res.setBackground(new java.awt.Color(51, 51, 51));
+        res.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         res.setForeground(new java.awt.Color(255, 255, 255));
 
         nCalle.setBackground(new java.awt.Color(51, 51, 51));
+        nCalle.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         nCalle.setForeground(new java.awt.Color(255, 255, 255));
 
         pTerr.setBackground(new java.awt.Color(51, 51, 51));
+        pTerr.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         pTerr.setForeground(new java.awt.Color(255, 255, 255));
 
         m2.setBackground(new java.awt.Color(51, 51, 51));
+        m2.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         m2.setForeground(new java.awt.Color(255, 255, 255));
 
         bath.setBackground(new java.awt.Color(51, 51, 51));
+        bath.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         bath.setForeground(new java.awt.Color(255, 255, 255));
         bath.setToolTipText("");
 
         cHab.setBackground(new java.awt.Color(51, 51, 51));
+        cHab.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         cHab.setForeground(new java.awt.Color(255, 255, 255));
 
         sData.setBackground(new java.awt.Color(136, 166, 193));
+        sData.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         sData.setForeground(new java.awt.Color(0, 0, 0));
         sData.setText("Guardar Datos");
         sData.addActionListener(new java.awt.event.ActionListener() {
@@ -109,6 +132,7 @@ public class cHom extends javax.swing.JFrame {
         });
 
         subPrice.setBackground(new java.awt.Color(136, 166, 193));
+        subPrice.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         subPrice.setForeground(new java.awt.Color(0, 0, 0));
         subPrice.setText("Tazar Casa");
         subPrice.addActionListener(new java.awt.event.ActionListener() {
@@ -118,6 +142,7 @@ public class cHom extends javax.swing.JFrame {
         });
 
         back.setBackground(new java.awt.Color(136, 166, 193));
+        back.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         back.setForeground(new java.awt.Color(0, 0, 0));
         back.setText("Regresar");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -125,6 +150,16 @@ public class cHom extends javax.swing.JFrame {
                 backActionPerformed(evt);
             }
         });
+
+        idHome.setEditable(false);
+        idHome.setBackground(new java.awt.Color(51, 51, 51));
+        idHome.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        idHome.setForeground(new java.awt.Color(255, 255, 255));
+        idHome.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        jLabel8.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Id de la Vivienda");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,6 +177,7 @@ public class cHom extends javax.swing.JFrame {
                                 .addComponent(back)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(subPrice))
+                            .addComponent(jSeparator1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(pile)
                                 .addGap(64, 64, 64)
@@ -153,24 +189,29 @@ public class cHom extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
-                                .addGap(25, 25, 25)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cHab, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(nCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(bath, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(m2, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(pTerr, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addComponent(jSeparator1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(res, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(47, Short.MAX_VALUE))
+                                        .addGap(25, 25, 25)
+                                        .addComponent(jLabel1))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cHab)
+                                            .addComponent(bath)
+                                            .addComponent(m2)
+                                            .addComponent(pTerr)
+                                            .addComponent(nCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(idHome, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(res, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,11 +249,15 @@ public class cHom extends javax.swing.JFrame {
                     .addComponent(sData)
                     .addComponent(subPrice)
                     .addComponent(back))
-                .addGap(48, 48, 48)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(res, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(idHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -239,59 +284,64 @@ public class cHom extends javax.swing.JFrame {
         pile.setSelected(false);
     }
     
+    public String getRes(){
+        Home h = new Home(Integer.parseInt(bath.getText()),Integer.parseInt(cHab.getText()),pile.isSelected(),
+                zCen.isSelected(),Double.valueOf(pTerr.getText()),Double.valueOf(m2.getText()),nCalle.getText());
+        String r = h.calcH(pile.isSelected(),zCen.isSelected()) + "$";
+        return r;
+    }
     private void sDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sDataActionPerformed
         Home h = new Home(Integer.parseInt(bath.getText()),Integer.parseInt(cHab.getText()),pile.isSelected(),
                 zCen.isSelected(),Double.valueOf(pTerr.getText()),Double.valueOf(m2.getText()),nCalle.getText());
+        String url = "jdbc:mysql://localhost/regUsers";
+        String usuario = "root";
+        String contraseña = "";
+
+        // Variables para la sentencia INSERT INTO
+        String sql = "INSERT INTO buildReg (BuildId, Address, Price) VALUES (?, ?,?)";
+        String[] columnasGeneradas = {"id"};
+
+        try {
+            // Establece la conexión a la base de datos
+            Connection conn = DriverManager.getConnection(url, usuario, contraseña);
+
+            // Prepara la sentencia INSERT INTO
+            PreparedStatement stmt = conn.prepareStatement(sql, columnasGeneradas);
+            stmt.setString(1, "0");
+            stmt.setString(2, nCalle.getText());
+            stmt.setString(3, h.calcH(pile.isSelected(),zCen.isSelected())+ "");
+
+            // Ejecuta la sentencia INSERT INTO
+            stmt.executeUpdate();
+
+            // Obtiene el ID del valor registrado
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                int idGenerado = rs.getInt(1);
+                idHome.setText(idGenerado + "");
+            }
+
+            // Cierra los recursos
+            rs.close();
+            stmt.close();
+            conn.close();
+            
+            //Mustra resultado
+            res.setText(getRes());
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         cBoard();       
     }//GEN-LAST:event_sDataActionPerformed
 
     private void subPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subPriceActionPerformed
-        //Variables
-        double r = 0;
-        int bth = Integer.parseInt(bath.getText());
-        double pT = Double.parseDouble(pTerr.getText());
-        int cH = Integer.parseInt(cHab.getText()); 
-        
-        //Agrega el 120% al valor del terreno
-        r += (120 / 100) * pT;
-        
-        //Suma segun la cantidad de habitaciones
-        if(cH == 1){
-            r += 15000;
-        }else if(cH == 2){
-            r += 25000;
-        }else if(cH == 3){
-            r += 37000;
-        }else if(cH == 4 ){
-            r += 42500;
-        }else if(cH > 4){
-            r += 60000;
-        }
-        
-        //Suma segun la cantidad de baños
-        if(2 > bth && pT > 50000 ){
-            r +=10000;
-        }else if(2 > bth){
-            r += 7500;
-        }else if(2 <=bth && 4 > bth){
-            r += 25000;
-        }else if(bth >= 4){
-            r += 35000;
-        }
-        
-        //Tiene pileta?
-        if(pile.isSelected()){
-            r += 35000;
-        }
-        //Esta en una zona centrica?
-        if(zCen.isSelected()){
-            r += 17500;
-        }else{
-            r -= 2500;
-        }
+        Home h = new Home(Integer.parseInt(bath.getText()),Integer.parseInt(cHab.getText()),pile.isSelected(),
+    zCen.isSelected(),Double.valueOf(pTerr.getText()),Double.valueOf(m2.getText()),nCalle.getText());
         
         //Muestra el resultado
-        res.setText(r + "$");
+        res.setText(h.calcH(pile.isSelected(),zCen.isSelected()) + "$");
     }//GEN-LAST:event_subPriceActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
@@ -340,6 +390,7 @@ public class cHom extends javax.swing.JFrame {
     private javax.swing.JButton back;
     private javax.swing.JTextField bath;
     private javax.swing.JTextField cHab;
+    private javax.swing.JTextField idHome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -347,6 +398,7 @@ public class cHom extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField m2;
