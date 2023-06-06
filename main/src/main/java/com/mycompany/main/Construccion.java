@@ -168,6 +168,7 @@ class Home extends Construccion{
         this.zCen = zCen;
     }
     
+    
     public double calcH(boolean p, boolean zC){
         double r = 0;
         
@@ -202,6 +203,7 @@ class Home extends Construccion{
         if(p){
             r += 35000;
         }
+        
         //Esta en una zona centrica?
         if(zC){
             r += 17500;
@@ -212,5 +214,4 @@ class Home extends Construccion{
         //Retorna resultado
         return r;
     }
-    
 }
