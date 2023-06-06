@@ -5,12 +5,12 @@
 package com.mycompany.main;
 
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+//import java.io.File;
+//import java.io.FileWriter;
+//import java.io.IOException;
 
 
 
@@ -201,14 +201,15 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-        //Creacion del archivo
+        
+    
+        /**
+        //Creacion de archivo con la pswd
         private static String cF(String path,String name){
             String pName = path + name;
             File myObj = new File(pName);
             return pName;
         }
-
         //Escribir el archivo
         private static void wF(String path,String w){
             try {
@@ -219,7 +220,29 @@ public class Login extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
-    
+        private void cFR(){
+            String p = cF(path,user.getText() + ".txt");
+            wF(p,pHash(pswd.getText()));
+        }
+        private void login(){
+                try{
+                    if(pswd.getText().equals("admin") && user.getText().equals("admin")){
+                        Welcome op = new Welcome();
+                        op.setVisible(true);
+                        this.setVisible(false);
+                        cFR();
+                    }else{
+                        err.setText("Usuario o Cotraseña invalido");
+                        cFR();
+                    }
+                    
+                    
+                }catch(Exception e){
+                    err.setText("Error al registrar.");
+                    e.printStackTrace();
+                }
+            } **/
+
         //Haseando la contraseña
         public static String pHash(String p){
             String gPswd = null;
@@ -241,55 +264,32 @@ public class Login extends javax.swing.JFrame {
             return gPswd + "\r\n";
         }
         
-        private void cFR(){
-            String p = cF(path,user.getText() + ".txt");
-            wF(p,pHash(pswd.getText()));
-        }
-        
-        /** private void login(){
-                try{
-                    if(pswd.getText().equals("admin") && user.getText().equals("admin")){
-                        Welcome op = new Welcome();
-                        op.setVisible(true);
-                        this.setVisible(false);
-                        cFR();
-                    }else{
-                        err.setText("Usuario o Cotraseña invalido");
-                        cFR();
-                    }
-                    
-                    
-                }catch(Exception e){
-                    err.setText("Error al registrar.");
-                    e.printStackTrace();
-                }
-            } **/
-        
-        
         private void loginDB(){
-            String psw = pswd.getText();
-            String usr = user.getText().trim();
-            
             try{
+                //Coneccion y definicion de de la query para la base de datos
                 Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/regUsers","root","");
                 PreparedStatement pst = cn.prepareStatement("SELECT * FROM users WHERE User = ? AND Hash = ?");
-
-                pst.setString(1, usr);
-                pst.setString(2, pHash(psw));
-
+                
+                //Verifica los parametros dados
+                pst.setString(1, user.getText().trim());
+                pst.setString(2, pHash(pswd.getText()));
+                
+                //Ejecuta la Consulta/Query
                 ResultSet rs = pst.executeQuery();
-
+                
+                //Verifica si fue exitoso
                 if (rs.next()){
-                    
-                    Welcome op = new Welcome();
-                    op.setVisible(true);
+                    Welcome W = new Welcome();
+                    W.setVisible(true);
                     this.setVisible(false);
-                    
-                   
                 }else{
                     err.setText("Usuario o Cotraseña invalido");
                 }
-
+                
+                // Cierra los recursos
+                rs.close();
+                pst.close();
+                cn.close();
             }catch(Exception e){
                 err.setText("Error al conectarse con la base de datos.");
                 e.printStackTrace();
@@ -298,9 +298,10 @@ public class Login extends javax.swing.JFrame {
         
 
         private void enter(KeyEvent evt){
+            
+            //Eventos de "Enter" y "Escape" para logear y salir respectivamente
             if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
                 loginDB();
-
             }else if(evt.getKeyCode() == KeyEvent.VK_ESCAPE){
                 System.exit(0);
             }
@@ -327,8 +328,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void cAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cAccActionPerformed
-        SignUp su = new SignUp();
-        su.setVisible(true);
+        SignUp SU = new SignUp();
+        SU.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_cAccActionPerformed
     

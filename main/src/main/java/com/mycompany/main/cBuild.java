@@ -372,20 +372,13 @@ public class cBuild extends javax.swing.JFrame{
     private void sDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sDataActionPerformed
         Build edf = new Build(Integer.parseInt(cPis.getText()),Integer.parseInt(cDep.getText()),elev.isSelected(),Double.valueOf(pTerr.getText()),Double.valueOf(m2.getText()),nCalle.getText());
         
-        String url = "jdbc:mysql://localhost/regUsers";
-        String usuario = "root";
-        String contraseña = "";
-
-        // Variables para la sentencia INSERT INTO
-        String sql = "INSERT INTO buildReg (BuildId, Address, Price) VALUES (?, ?,?)";
-        String[] columnasGeneradas = {"id"};
-
+        String[] columnasGeneradas = {"id"} ;
         try {
             // Establece la conexión a la base de datos
-            Connection conn = DriverManager.getConnection(url, usuario, contraseña);
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/regUsers", "root", "");
 
             // Prepara la sentencia INSERT INTO
-            PreparedStatement stmt = conn.prepareStatement(sql, columnasGeneradas);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO buildReg (BuildId, Address, Price) VALUES (?, ?,?)", columnasGeneradas);
             stmt.setString(1, "0");
             stmt.setString(2, nCalle.getText());
             stmt.setString(3, edf.calcE(elev.isSelected())+ "");

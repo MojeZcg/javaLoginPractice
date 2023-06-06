@@ -150,23 +150,28 @@ public class SignUp extends javax.swing.JFrame {
 
     private void regActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regActionPerformed
         try{
-                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/regUsers","root","");
-                PreparedStatement pst = cn.prepareStatement("INSERT INTO users VALUES(?,?,?)");
+            //Establece conección
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/regUsers","root","");
+            PreparedStatement pst = cn.prepareStatement("INSERT INTO users VALUES(?,?,?)");
                 
-                pst.setString(1,"0");
-                pst.setString(2,user.getText().trim());
-                pst.setString(3,pHash(pswd.getText()));
+            pst.setString(1,"0");
+            pst.setString(2,user.getText().trim());
+            pst.setString(3,pHash(pswd.getText()));
                 
-                pst.executeUpdate();
+            pst.executeUpdate();
                 
-                user.setText("");
-                pswd.setText("");
-                err.setText("Registro exitoso.");
+            //Exitoso
+            user.setText("");
+            pswd.setText("");
+            err.setText("Registro exitoso.");
                 
-            }catch(Exception e){
-                err.setText("Error al registrar.");
-                e.printStackTrace();
-            }
+            // Cierra los recursos
+            pst.close();
+            cn.close();
+        }catch(Exception e){
+            err.setText("Error al registrar.");
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_regActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed

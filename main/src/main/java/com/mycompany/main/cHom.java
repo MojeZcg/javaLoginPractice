@@ -291,22 +291,15 @@ public class cHom extends javax.swing.JFrame {
         return r;
     }
     private void sDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sDataActionPerformed
-        Home h = new Home(Integer.parseInt(bath.getText()),Integer.parseInt(cHab.getText()),pile.isSelected(),
-                zCen.isSelected(),Double.valueOf(pTerr.getText()),Double.valueOf(m2.getText()),nCalle.getText());
-        String url = "jdbc:mysql://localhost/regUsers";
-        String usuario = "root";
-        String contraseña = "";
-
-        // Variables para la sentencia INSERT INTO
-        String sql = "INSERT INTO buildReg (BuildId, Address, Price) VALUES (?, ?,?)";
+        Home h = new Home(Integer.parseInt(bath.getText()),Integer.parseInt(cHab.getText()),pile.isSelected(),zCen.isSelected(),Double.valueOf(pTerr.getText()),Double.valueOf(m2.getText()),nCalle.getText());
+        
         String[] columnasGeneradas = {"id"};
-
         try {
             // Establece la conexión a la base de datos
-            Connection conn = DriverManager.getConnection(url, usuario, contraseña);
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/regUsers", "root", "");
 
             // Prepara la sentencia INSERT INTO
-            PreparedStatement stmt = conn.prepareStatement(sql, columnasGeneradas);
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO buildReg (BuildId, Address, Price) VALUES (?, ?,?)", columnasGeneradas);
             stmt.setString(1, "0");
             stmt.setString(2, nCalle.getText());
             stmt.setString(3, h.calcH(pile.isSelected(),zCen.isSelected())+ "");
