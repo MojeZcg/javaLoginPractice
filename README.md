@@ -1,3 +1,3 @@
 # javaLoginPractice
-Java practice for password hashing in md5 file in a path.
+Java practice on password hashing for a database. The database is in the "db" folder, created with xampp.
 Create in Apache NetBeans IDE 17
